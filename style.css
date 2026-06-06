@@ -1,0 +1,18 @@
+@charset 'utf-8';
+
+.user-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: #fff;
+}
+
+.user-card-name {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+}
+
+.user-card p {
+    margin: 4px 0;
+}

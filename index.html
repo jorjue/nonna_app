@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>のんなアプリ（仮）| 利用者マスタ入力画面</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+
+        <h1 class="app-title">
+            のんなアプリ（仮）
+        </h1>
+    </header>
+
+    <main>
+
+        <section class="input-section">
+
+            <h2 class="section-title">
+                利用者情報入力フォーム
+            </h2>
+
+            <form class="input-form" id="inputForm">
+
+                <label for="userNameInput">利用者名</label>
+                <input type="text" class="user-name-input" id="userNameInput" placeholder="例：山田太郎" required>
+
+                <label for="serviceType">利用形態</label>
+                <select name="serviceType" id="serviceTypeInput">
+                    <option value="day">デイサービス</option>
+                    <option value="resident">入居</option>
+                </select>
+
+                <fieldset>
+                    <legend>入浴日</legend>
+
+                    <label>
+                        <input type="checkbox" name="bathDays" value="sun">日
+                    </label>
+                    <label>
+                        <input type="checkbox" name="bathDays" value="mon">月
+                    </label>
+                    <label>
+                        <input type="checkbox" name="bathDays" value="tue">火
+                    </label>
+                    <label>
+                        <input type="checkbox" name="bathDays" value="wed">水
+                    </label>
+                    <label>
+                        <input type="checkbox" name="bathDays" value="thu">木
+                    </label>
+                    <label>
+                        <input type="checkbox" name="bathDays" value="fri">金
+                    </label>
+                    <label>
+                        <input type="checkbox" name="bathDays" value="sat">土
+                    </label>
+                </fieldset>
+
+                <label for="bathType">入浴形態</label>
+                <select name="bathType" id="bathType">
+                    <option value="general">一般浴</option>
+                    <option value="machine">機械浴</option>
+                    <option value="shower">シャワー浴</option>
+                    <option value="wipe">清拭</option>
+                </select>
+
+                <button type="submit">登録</button>
+                
+            </form>
+        </section>
+
+        <section class="user-data-section">
+
+            <h2 class="section-title">
+                利用者一覧
+            </h2>
+
+            <div id="userList">
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+
+        &copy; Atsushi 2026
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

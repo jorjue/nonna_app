@@ -16,3 +16,7 @@
 .user-card p {
     margin: 4px 0;
 }
+
+.delete-button {
+    margin-top: 8px;
+}

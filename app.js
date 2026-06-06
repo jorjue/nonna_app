@@ -39,7 +39,26 @@ function renderUsers() {
         <p>利用形態：${serviceTypeMap[user.serviceType]}</p>
         <p>入浴曜日：${bathDaysText}</p>
         <p>入浴形態：${bathTypeMap[user.bathType]}</p>
+        <button type="button" class="delete-button" data-id="${user.id}">削除</button>
         `;
+
+        const deleteButton = userCard.querySelector('.delete-button');
+
+        deleteButton.addEventListener('click', () => {
+            const result = confirm(`${user.name}さんを削除しますか？`);
+
+            if (!result) {
+               return;
+            }
+
+            const updatedUsers = users.filter((targetUser) => {
+                return targetUser.id !== user.id;
+            });
+
+            localStorage.setItem('users', JSON.stringify(updatedUsers));
+
+            renderUsers();
+        });
 
         userList.appendChild(userCard);
     });

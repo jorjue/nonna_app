@@ -38,11 +38,29 @@ section {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
+.hidden {
+    display: none;
+}
+
 .section-title {
     margin: 0 0 16px;
     font-size: 1.2rem;
     border-left: 6px solid #607d8b;
     padding-left: 8px;
+}
+
+.main-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-menu-item button {
+    width: 100%;
+    min-height: 64px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 4px 0;
 }
 
 .input-form {
@@ -93,10 +111,20 @@ button {
     cursor: pointer;
 }
 
-button[type="submit"] {
+.primary-button {
     background: #1976d2;
     color: #fff;
     font-weight: bold;
+}
+
+.secondary-button {
+    background: #eceff1;
+    color: #333;
+}
+
+.danger-button {
+    background: #c62828;
+    color: #fff;
 }
 
 #userList {

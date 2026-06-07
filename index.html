@@ -16,7 +16,24 @@
 
     <main>
 
-        <section class="input-section">
+        <section class="main-menu-section" id="mainMenuSection">
+
+            <h2 class="section-title">
+                メインメニュー
+            </h2>
+
+            <nav class="main-menu">
+
+                <ul class="main-menu-list">
+
+                    <li class="main-menu-item"><button id="userRegister" class="secondary-button">利用者登録</button></li>
+                    <li class="main-menu-item"><button id="userData" class="secondary-button">利用者一覧・編集</button></li>
+                    <li class="main-menu-item"><button id="print" class="secondary-button">帳票印刷</button></li>
+                </ul>
+            </nav>
+        </section>
+
+        <section class="user-register-section hidden" id="userRegisterSection">
 
             <h2 class="section-title">
                 利用者情報入力フォーム
@@ -27,7 +44,7 @@
                 <label for="userNameInput">利用者名</label>
                 <input type="text" class="user-name-input" id="userNameInput" placeholder="例：山田太郎" required>
 
-                <label for="serviceType">利用形態</label>
+                <label for="serviceTypeInput">利用形態</label>
                 <select name="serviceType" id="serviceTypeInput">
                     <option value="day">デイサービス</option>
                     <option value="resident">入居</option>
@@ -67,12 +84,16 @@
                     <option value="wipe">清拭</option>
                 </select>
 
-                <button type="submit">登録</button>
+                <button type="submit" class="primary-button">登録</button>
                 
             </form>
+
+            <button class="back-button secondary-button">
+                メニューへ戻る
+            </button>
         </section>
 
-        <section class="user-data-section">
+        <section class="user-data-section hidden" id="userDataSection">
 
             <h2 class="section-title">
                 利用者一覧
@@ -81,6 +102,21 @@
             <div id="userList">
 
             </div>
+
+            <button class="back-button secondary-button">
+                メニューへ戻る
+            </button>
+        </section>
+
+        <section class="print-section hidden" id="printSection">
+
+            <h2 class="section-title">
+                帳票印刷
+            </h2>
+
+            <button class="back-button secondary-button">
+                メニューへ戻る
+            </button>
         </section>
     </main>
 

@@ -1,5 +1,45 @@
 'use strict';
 
+// グローバル定数
+const inputForm = document.getElementById('inputForm');
+const mainMenuSection = document.getElementById('mainMenuSection');
+const userRegisterSection = document.getElementById('userRegisterSection');
+const userDataSection = document.getElementById('userDataSection');
+const printSection = document.getElementById('printSection');
+const userRegisterButton = document.getElementById('userRegister');
+const userDataButton = document.getElementById('userData');
+const printButton = document.getElementById('print');
+const backButton = document.querySelectorAll('.back-button');
+
+function showSection(section) {
+    mainMenuSection.classList.add('hidden');
+    userRegisterSection.classList.add('hidden');
+    userDataSection.classList.add('hidden');
+    printSection.classList.add('hidden');
+
+    section.classList.remove('hidden');
+}
+
+showSection(mainMenuSection);
+
+userRegisterButton.addEventListener('click', () => {
+    showSection(userRegisterSection);
+});
+
+userDataButton.addEventListener('click', () => {
+    showSection(userDataSection);
+});
+
+printButton.addEventListener('click', () => {
+    showSection(printSection);
+});
+
+backButton.forEach((button) => {
+    button.addEventListener('click', () => {
+        showSection(mainMenuSection);
+    });
+});
+
 function renderUsers() {
     const userList = document.getElementById('userList');
 
@@ -63,8 +103,6 @@ function renderUsers() {
         userList.appendChild(userCard);
     });
 }
-
-const inputForm = document.getElementById('inputForm');
 
 inputForm.addEventListener('submit', (event) => {
     event.preventDefault();

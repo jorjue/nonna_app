@@ -1,130 +1,163 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>のんなアプリ（仮）| 利用者マスタ入力画面</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#263238">
+
+  <title>のんなアプリ（仮） | 利用者マスタ入力画面</title>
+
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="utilities.css">
+  <link rel="stylesheet" href="components.css">
+  <link rel="stylesheet" href="print.css" media="print">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="manifest" href="manifest.json">
 </head>
+
 <body>
-    <header>
+  <header class="no-print">
+    <h1 class="app-title">のんなアプリ（仮）</h1>
+  </header>
 
-        <h1 class="app-title">
-            のんなアプリ（仮）
-        </h1>
-    </header>
+  <main>
+    <section class="main-menu-section card stack" id="mainMenuSection">
+      <h2 class="section-title">メインメニュー</h2>
 
-    <main>
-
-        <section class="main-menu-section" id="mainMenuSection">
-
-            <h2 class="section-title">
-                メインメニュー
-            </h2>
-
-            <nav class="main-menu">
-
-                <ul class="main-menu-list">
-
-                    <li class="main-menu-item"><button id="userRegister" class="secondary-button">利用者登録</button></li>
-                    <li class="main-menu-item"><button id="userData" class="secondary-button">利用者一覧・編集</button></li>
-                    <li class="main-menu-item"><button id="print" class="secondary-button">帳票印刷</button></li>
-                </ul>
-            </nav>
-        </section>
-
-        <section class="user-register-section hidden" id="userRegisterSection">
-
-            <h2 class="section-title">
-                利用者情報入力フォーム
-            </h2>
-
-            <form class="input-form" id="inputForm">
-
-                <label for="userNameInput">利用者名</label>
-                <input type="text" class="user-name-input" id="userNameInput" placeholder="例：山田太郎" required>
-
-                <label for="serviceTypeInput">利用形態</label>
-                <select name="serviceType" id="serviceTypeInput">
-                    <option value="day">デイサービス</option>
-                    <option value="resident">入居</option>
-                </select>
-
-                <fieldset>
-                    <legend>入浴日</legend>
-
-                    <label>
-                        <input type="checkbox" name="bathDays" value="sun">日
-                    </label>
-                    <label>
-                        <input type="checkbox" name="bathDays" value="mon">月
-                    </label>
-                    <label>
-                        <input type="checkbox" name="bathDays" value="tue">火
-                    </label>
-                    <label>
-                        <input type="checkbox" name="bathDays" value="wed">水
-                    </label>
-                    <label>
-                        <input type="checkbox" name="bathDays" value="thu">木
-                    </label>
-                    <label>
-                        <input type="checkbox" name="bathDays" value="fri">金
-                    </label>
-                    <label>
-                        <input type="checkbox" name="bathDays" value="sat">土
-                    </label>
-                </fieldset>
-
-                <label for="bathType">入浴形態</label>
-                <select name="bathType" id="bathType">
-                    <option value="general">一般浴</option>
-                    <option value="machine">機械浴</option>
-                    <option value="shower">シャワー浴</option>
-                    <option value="wipe">清拭</option>
-                </select>
-
-                <button type="submit" class="primary-button">登録</button>
-                
-            </form>
-
-            <button class="back-button secondary-button">
-                メニューへ戻る
+      <nav class="main-menu" aria-label="メインメニュー">
+        <ul class="main-menu-list stack-sm">
+          <li class="main-menu-item">
+            <button type="button" id="userRegister" class="btn btn-secondary w-full">
+              利用者登録
             </button>
-        </section>
+          </li>
 
-        <section class="user-data-section hidden" id="userDataSection">
-
-            <h2 class="section-title">
-                利用者一覧
-            </h2>
-
-            <div id="userList">
-
-            </div>
-
-            <button class="back-button secondary-button">
-                メニューへ戻る
+          <li class="main-menu-item">
+            <button type="button" id="userData" class="btn btn-secondary w-full">
+              利用者一覧・編集
             </button>
-        </section>
+          </li>
 
-        <section class="print-section hidden" id="printSection">
-
-            <h2 class="section-title">
-                帳票印刷
-            </h2>
-
-            <button class="back-button secondary-button">
-                メニューへ戻る
+          <li class="main-menu-item">
+            <button type="button" id="print" class="btn btn-secondary w-full">
+              帳票印刷
             </button>
-        </section>
-    </main>
+          </li>
+        </ul>
+      </nav>
+    </section>
 
-    <footer>
+    <section class="user-register-section card stack hidden" id="userRegisterSection">
+      <h2 class="section-title">利用者情報入力フォーム</h2>
 
-        &copy; Atsushi 2026
-    </footer>
+      <form class="input-form stack-md" id="inputForm">
+        <div class="form-group">
+          <label for="userNameInput">利用者名</label>
+          <input
+            type="text"
+            class="input"
+            id="userNameInput"
+            name="userName"
+            placeholder="例：山田太郎"
+            autocomplete="name"
+            required
+          >
+        </div>
 
-    <script src="app.js"></script>
+        <div class="form-group">
+          <label for="serviceTypeInput">利用形態</label>
+          <select class="select" name="serviceType" id="serviceTypeInput">
+            <option value="day">デイサービス</option>
+            <option value="resident">入居</option>
+          </select>
+        </div>
+
+        <fieldset>
+          <legend>入浴日</legend>
+
+          <div class="cluster">
+            <label>
+              <input type="checkbox" name="bathDays" value="sun">
+              日
+            </label>
+
+            <label>
+              <input type="checkbox" name="bathDays" value="mon">
+              月
+            </label>
+
+            <label>
+              <input type="checkbox" name="bathDays" value="tue">
+              火
+            </label>
+
+            <label>
+              <input type="checkbox" name="bathDays" value="wed">
+              水
+            </label>
+
+            <label>
+              <input type="checkbox" name="bathDays" value="thu">
+              木
+            </label>
+
+            <label>
+              <input type="checkbox" name="bathDays" value="fri">
+              金
+            </label>
+
+            <label>
+              <input type="checkbox" name="bathDays" value="sat">
+              土
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          <label for="bathTypeInput">入浴形態</label>
+          <select class="select" name="bathType" id="bathTypeInput">
+            <option value="general">一般浴</option>
+            <option value="machine">機械浴</option>
+            <option value="shower">シャワー浴</option>
+            <option value="wipe">清拭</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-full">
+          登録
+        </button>
+      </form>
+
+      <button type="button" class="back-button btn btn-secondary w-full">
+        メニューへ戻る
+      </button>
+    </section>
+
+    <section class="user-data-section card stack hidden" id="userDataSection">
+      <h2 class="section-title">利用者一覧</h2>
+
+      <div id="userList" class="stack-sm" aria-live="polite"></div>
+
+      <button type="button" class="back-button btn btn-secondary w-full">
+        メニューへ戻る
+      </button>
+    </section>
+
+    <section class="print-section card stack hidden" id="printSection">
+      <h2 class="section-title">帳票印刷</h2>
+
+      <button type="button" class="back-button btn btn-secondary w-full no-print">
+        メニューへ戻る
+      </button>
+    </section>
+  </main>
+
+  <footer class="no-print">
+    のんなアプリ v0.1
+  </footer>
+
+  <script src="app.js" defer></script>
 </body>
 </html>

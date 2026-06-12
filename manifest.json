@@ -1,0 +1,11 @@
+{
+    "name": "のんなアプリ（仮）",
+    "short_name": "のんな",
+    "description": "介護施設向け帳票作成支援アプリ",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#f5f5f5",
+    "theme_color": "#263238",
+    "lang": "ja"
+}

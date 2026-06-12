@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  .page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+}

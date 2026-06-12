@@ -118,12 +118,21 @@ input[type="checkbox"] {
 
 .delete-button {
   margin-top: 12px;
-
-  background: var(--color-danger);
-  color: #ffffff;
 }
 
 .back-button {
   width: 100%;
   margin-top: 12px;
+}
+
+.empty-message {
+    padding: 1rem;
+
+    border-radius: var(--border-radius-sm);
+
+    background: var(--bg-color);
+
+    color: #666666;
+
+    text-align: center;
 }

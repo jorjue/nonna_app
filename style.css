@@ -136,3 +136,11 @@ input[type="checkbox"] {
 
     text-align: center;
 }
+
+.hidden {
+  display: none !important;
+}
+
+#printTargetList {
+  display: none;
+}

@@ -148,6 +148,21 @@
     <section class="print-section card stack hidden" id="printSection">
       <h2 class="section-title">帳票印刷</h2>
 
+      <div class="form-group no-print">
+        <label for="printDateInput">印刷日</label>
+        <input type="date" class="input" id="printDateInput">
+      </div>
+
+      <button type="button" class="btn btn-primary w-full no-print" id="generateBathListButton">入浴予定者を表示</button>
+
+      <div id="bathPreviewList" class="stack-sm"></div>
+
+      <button type="button" class="btn btn-primary w-full no-print hidden" id="generatePrintTargetButton">
+        印刷プレビューを作成
+      </button>
+
+      <div id="printPreview"></div>
+
       <button type="button" class="back-button btn btn-secondary w-full no-print">
         メニューへ戻る
       </button>

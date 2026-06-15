@@ -91,3 +91,14 @@ select {
   width: 100%;
   table-layout: fixed;
 }
+
+input[type="date"] {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.form-group {
+  min-width: 0;
+}

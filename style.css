@@ -144,3 +144,11 @@ input[type="checkbox"] {
 #printTargetList {
   display: none;
 }
+
+.date-shortcut-buttons {
+  margin-top: 0.5rem;
+}
+
+.date-shortcut-buttons .btn {
+  flex: 1;
+}

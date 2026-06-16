@@ -13,6 +13,8 @@ const backButton = document.querySelectorAll(".back-button");
 const submitButton = inputForm.querySelector('button[type="submit"]');
 const userRegisterTitle = userRegisterSection.querySelector(".section-title");
 const printDateInput = document.getElementById("printDateInput");
+const todayButton = document.getElementById('todayButton');
+const tomorrowButton = document.getElementById('tomorrowButton');
 const generateBathListButton = document.getElementById(
   "generateBathListButton",
 );
@@ -373,6 +375,31 @@ generateBathListButton.addEventListener("click", () => {
     bathPreviewList.appendChild(residentUserGroup);
   }
   generatePrintTargetButton.classList.remove("hidden");
+});
+
+// 日付入力フォームのデータ型を整理する関数
+function formatDateForInput(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+}
+
+// 当日ボタン
+todayButton.addEventListener('click', () => {
+    const today = new Date();
+
+    printDateInput.value = formatDateForInput(today);
+});
+
+// 翌日ボタン
+tomorrowButton.addEventListener('click', () => {
+    const tomorrow = new Date();
+
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    printDateInput.value = formatDateForInput(tomorrow);
 });
 
 // 印刷対象作成ボタンの動作

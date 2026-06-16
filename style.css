@@ -152,3 +152,51 @@ input[type="checkbox"] {
 .date-shortcut-buttons .btn {
   flex: 1;
 }
+
+.bath-sheet-preview {
+  margin-top: 1rem;
+}
+
+.bath-sheet-date {
+  margin-bottom: 0.75rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.bath-sheet-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+.bath-sheet-table th,
+.bath-sheet-table td {
+  border: 1px solid #999999;
+  padding: 0.5rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.bath-sheet-table th {
+  background: #eeeeee;
+  font-weight: bold;
+}
+
+.bath-sheet-table td:first-child {
+  font-weight: bold;
+}
+
+.bath-sheet-table td {
+  padding: 8px 12px;
+}
+
+.col-name  { width: 25%; }
+.col-bath  { width: 8%; }
+.col-time  { width: 15%; }
+.col-vital { width: 37%; }
+.col-type  { width: 15%; }
+
+.resident-name {
+  color: var(--color-danger);
+  font-weight: bold;
+}

@@ -13,8 +13,8 @@ const backButton = document.querySelectorAll(".back-button");
 const submitButton = inputForm.querySelector('button[type="submit"]');
 const userRegisterTitle = userRegisterSection.querySelector(".section-title");
 const printDateInput = document.getElementById("printDateInput");
-const todayButton = document.getElementById('todayButton');
-const tomorrowButton = document.getElementById('tomorrowButton');
+const todayButton = document.getElementById("todayButton");
+const tomorrowButton = document.getElementById("tomorrowButton");
 const generateBathListButton = document.getElementById(
   "generateBathListButton",
 );
@@ -22,6 +22,7 @@ const bathPreviewList = document.getElementById("bathPreviewList");
 const generatePrintTargetButton = document.getElementById(
   "generatePrintTargetButton",
 );
+const goPrintButton = document.getElementById("goPrintButton");
 const dayKeys = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
 const attendanceData = [];
@@ -379,27 +380,27 @@ generateBathListButton.addEventListener("click", () => {
 
 // 日付入力フォームのデータ型を整理する関数
 function formatDateForInput(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
 
-    return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}`;
 }
 
 // 当日ボタン
-todayButton.addEventListener('click', () => {
-    const today = new Date();
+todayButton.addEventListener("click", () => {
+  const today = new Date();
 
-    printDateInput.value = formatDateForInput(today);
+  printDateInput.value = formatDateForInput(today);
 });
 
 // 翌日ボタン
-tomorrowButton.addEventListener('click', () => {
-    const tomorrow = new Date();
+tomorrowButton.addEventListener("click", () => {
+  const tomorrow = new Date();
 
-    tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setDate(tomorrow.getDate() + 1);
 
-    printDateInput.value = formatDateForInput(tomorrow);
+  printDateInput.value = formatDateForInput(tomorrow);
 });
 
 // 印刷対象作成ボタンの動作
@@ -464,32 +465,74 @@ generatePrintTargetButton.addEventListener("click", () => {
   });
 
   renderPrintPreview(printTargetUsers);
+  goPrintButton.classList.remove("hidden");
 });
 
 function renderPrintPreview(users) {
   const printPreview = document.getElementById("printPreview");
-
-  printPreview.innerHTML = "";
-
   const selectedDate = document.getElementById("printDateInput").value;
 
-  const previewCard = document.createElement("div");
+  const bathTypeMap = {
+    general: "一般浴",
+    machine: "機械浴",
+    shower: "シャワー浴",
+    wipe: "清拭",
+  };
 
-  previewCard.classList.add("user-card");
+  printPreview.innerHTML = `
+        <div class="bath-sheet-preview">
+            <h2 class="section-title no-print">入浴表プレビュー</h2>
 
-  previewCard.innerHTML = `
-        <h2 class="section-title">
-            入浴表プレビュー
-        </h2>
+            <p class="bath-sheet-date">${formatDateForDisplay(selectedDate)}<strong> 入浴表</strong></p>
 
-        <p>${selectedDate}</p>
+            <div class="table-wrap">
+                <table class="bath-sheet-table">
+                    <thead>
+                        <tr>
+                            <th class="col-name">氏名</th>
+                            <th class="col-bath">入浴</th>
+                            <th class="col-time">時間</th>
+                            <th class="col-vital">浴前バイタル</th>
+                            <th class="col-type">入浴形態</th>
+                        </tr>
+                    </thead>
 
-        <ul>
-            ${users.map((user) => `<li>${user.name}</li>`).join("")}
-        </ul>
+                    <tbody>
+                        ${users
+                          .map((user) => {
+                            return `
+                                <tr>
+                                    <td class="${user.serviceType === 'resident' ? 'resident-name' : ''}">${user.name}</td>
+                                    <td>□</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>${bathTypeMap[user.bathType]}</td>
+                                </tr>
+                            `;
+                          })
+                          .join("")}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     `;
-
-  printPreview.appendChild(previewCard);
 }
+
+function formatDateForDisplay(dateString) {
+    const date = new Date(dateString);
+
+    const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const weekDay = weekDays[date.getDay()];
+
+    return `${year}年${month}月${day}日（${weekDay}）`;
+}
+
+goPrintButton.addEventListener("click", () => {
+  window.print();
+});
 
 renderUsers();

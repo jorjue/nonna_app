@@ -27,4 +27,79 @@
     color: #c62828;
     font-weight: bold;
   }
+
+  @page {
+    size: A4 landscape;
+
+    margin: 6mm;
+  }
+
+  html,
+  body {
+    width: 100%;
+
+    height: auto;
+
+    margin: 0;
+
+    padding: 0;
+
+    background: #ffffff;
+  }
+
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  main {
+    width: 100%;
+
+    max-width: none;
+
+    margin: 0;
+
+    padding: 0;
+  }
+
+  section,
+  .card,
+  .print-section {
+    box-shadow: none !important;
+
+    border-radius: 0 !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    background: #ffffff;
+  }
+
+  #printSection > *:not(#printPreview) {
+    display: none !important;
+  }
+
+  #printPreview {
+    display: block !important;
+  }
+
+  .bath-sheet-preview {
+    margin: 0;
+
+    padding: 0;
+
+    box-shadow: none;
+  }
+
+  .bath-sheet-table {
+    width: 100%;
+
+    table-layout: fixed;
+
+    page-break-inside: avoid;
+
+    break-inside: avoid;
+  }
 }

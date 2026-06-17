@@ -70,9 +70,10 @@ printButton.addEventListener("click", () => {
 
 // 各ページの戻るボタンの動作
 backButton.forEach((button) => {
-  button.addEventListener("click", () => {
-    showSection(mainMenuSection);
-  });
+    button.addEventListener('click', () => {
+        resetPrintSection();
+        showSection(mainMenuSection);
+    });
 });
 
 // 利用者一覧の画面描写に関する動作
@@ -534,5 +535,13 @@ function formatDateForDisplay(dateString) {
 goPrintButton.addEventListener("click", () => {
   window.print();
 });
+
+function resetPrintSection() {
+    printDateInput.value = '';
+    bathPreviewList.innerHTML = '';
+    printPreview.innerHTML = '';
+    generatePrintTargetButton.classList.add('hidden');
+    goPrintButton.classList.add('hidden');
+}
 
 renderUsers();

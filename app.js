@@ -87,7 +87,7 @@ function renderUsers() {
       return a.serviceType.localeCompare(b.serviceType);
     }
 
-    return a.name.localeCompare(b.name, "ja");
+    return (a.kana || '').localeCompare(b.kana || '', "ja");
   });
 
   const serviceTypeMap = {
@@ -166,6 +166,7 @@ function renderUsers() {
       editingUserId = user.id;
 
       document.getElementById("userNameInput").value = user.name;
+      document.getElementById("kanaInput").value = user.kana;
       document.getElementById("serviceTypeInput").value = user.serviceType;
       document.getElementById("bathTypeInput").value = user.bathType;
 
@@ -197,6 +198,9 @@ inputForm.addEventListener("submit", (event) => {
   const userNameInput = document.getElementById("userNameInput");
   const userName = userNameInput.value.trim();
 
+  const kanaInput = document.getElementById("kanaInput");
+  const kana = kanaInput.value.trim();
+
   const serviceTypeInput = document.getElementById("serviceTypeInput");
   const serviceType = serviceTypeInput.value;
 
@@ -215,6 +219,7 @@ inputForm.addEventListener("submit", (event) => {
   const userData = {
     id: crypto.randomUUID(),
     name: userName,
+    kana: kana,
     serviceType: serviceType,
     bathDays: bathDays,
     bathType: bathType,

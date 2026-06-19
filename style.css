@@ -200,3 +200,9 @@ input[type="checkbox"] {
   color: var(--color-danger);
   font-weight: bold;
 }
+
+.user-card-kana {
+  font-size: 0.85rem;
+  color: #666666;
+  margin-bottom: 0.25rem;
+}

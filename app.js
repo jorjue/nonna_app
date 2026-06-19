@@ -70,10 +70,10 @@ printButton.addEventListener("click", () => {
 
 // 各ページの戻るボタンの動作
 backButton.forEach((button) => {
-    button.addEventListener('click', () => {
-        resetPrintSection();
-        showSection(mainMenuSection);
-    });
+  button.addEventListener("click", () => {
+    resetPrintSection();
+    showSection(mainMenuSection);
+  });
 });
 
 // 利用者一覧の画面描写に関する動作
@@ -87,7 +87,7 @@ function renderUsers() {
       return a.serviceType.localeCompare(b.serviceType);
     }
 
-    return (a.kana || '').localeCompare(b.kana || '', "ja");
+    return (a.kana || "").localeCompare(b.kana || "", "ja");
   });
 
   const serviceTypeMap = {
@@ -132,7 +132,9 @@ function renderUsers() {
       .map((day) => bathDaysMap[day])
       .join("・");
 
-    userCard.innerHTML = `<h3 class="user-card-name">${user.name}</h3>
+    userCard.innerHTML = `
+        <p class="user-card-kana">${user.kana || ""}</p>
+        <h3 class="user-card-name">${user.name}</h3>
         <p>利用形態：${serviceTypeMap[user.serviceType]}</p>
         <p>入浴曜日：${bathDaysText}</p>
         <p>入浴形態：${bathTypeMap[user.bathType]}</p>
@@ -166,7 +168,7 @@ function renderUsers() {
       editingUserId = user.id;
 
       document.getElementById("userNameInput").value = user.name;
-      document.getElementById("kanaInput").value = user.kana;
+      document.getElementById("kanaInput").value = user.kana || "";
       document.getElementById("serviceTypeInput").value = user.serviceType;
       document.getElementById("bathTypeInput").value = user.bathType;
 
@@ -200,6 +202,13 @@ inputForm.addEventListener("submit", (event) => {
 
   const kanaInput = document.getElementById("kanaInput");
   const kana = kanaInput.value.trim();
+
+  const kanaPattern = /^[ァ-ヶー]+$/;
+  if (!kanaPattern.test(kana)) {
+    alert("フリガナは全角カタカナで入力してください。");
+    kanaInput.focus();
+    return;
+  }
 
   const serviceTypeInput = document.getElementById("serviceTypeInput");
   const serviceType = serviceTypeInput.value;
@@ -508,7 +517,7 @@ function renderPrintPreview(users) {
                           .map((user) => {
                             return `
                                 <tr>
-                                    <td class="${user.serviceType === 'resident' ? 'resident-name' : ''}">${user.name}</td>
+                                    <td class="${user.serviceType === "resident" ? "resident-name" : ""}">${user.name}</td>
                                     <td>□</td>
                                     <td></td>
                                     <td></td>
@@ -525,16 +534,16 @@ function renderPrintPreview(users) {
 }
 
 function formatDateForDisplay(dateString) {
-    const date = new Date(dateString);
+  const date = new Date(dateString);
 
-    const weekDays = ['日', '月', '火', '水', '木', '金', '土'];
+  const weekDays = ["日", "月", "火", "水", "木", "金", "土"];
 
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    const weekDay = weekDays[date.getDay()];
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const weekDay = weekDays[date.getDay()];
 
-    return `${year}年${month}月${day}日（${weekDay}）`;
+  return `${year}年${month}月${day}日（${weekDay}）`;
 }
 
 goPrintButton.addEventListener("click", () => {
@@ -542,11 +551,11 @@ goPrintButton.addEventListener("click", () => {
 });
 
 function resetPrintSection() {
-    printDateInput.value = '';
-    bathPreviewList.innerHTML = '';
-    printPreview.innerHTML = '';
-    generatePrintTargetButton.classList.add('hidden');
-    goPrintButton.classList.add('hidden');
+  printDateInput.value = "";
+  bathPreviewList.innerHTML = "";
+  printPreview.innerHTML = "";
+  generatePrintTargetButton.classList.add("hidden");
+  goPrintButton.classList.add("hidden");
 }
 
 renderUsers();

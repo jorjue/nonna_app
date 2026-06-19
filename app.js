@@ -294,9 +294,22 @@ generateBathListButton.addEventListener("click", () => {
     wipe: "清拭",
   };
 
-  const dayUsers = users.filter((user) => {
-    return user.serviceType === "day" && (user.bathDays || []).includes(dayKey);
-  });
+  const dayUsers = users
+    .filter((user) => {
+      return (
+        user.serviceType === "day" && (user.bathDays || []).includes(dayKey)
+      );
+    })
+    .sort((a, b) => {
+      const aScheduled = (a.bathDays || []).includes(dayKey);
+      const bScheduled = (b.bathDays || []).includes(dayKey);
+
+      if (aScheduled !== bScheduled) {
+        return bScheduled - aScheduled;
+      }
+
+      return (a.kana || "").localeCompare(b.kana || "", "ja");
+    });
 
   const residentUsers = users
     .filter((user) => {
@@ -310,7 +323,7 @@ generateBathListButton.addEventListener("click", () => {
         return bScheduled - aScheduled;
       }
 
-      return a.name.localeCompare(b.name, "ja");
+      return (a.kana || "").localeCompare(b.kana || "", "ja");
     });
 
   bathPreviewList.innerHTML = "";
@@ -452,6 +465,9 @@ generatePrintTargetButton.addEventListener("click", () => {
     })
     .filter((user) => {
       return user !== null;
+    })
+    .sort((a, b) => {
+      return (a.kana || "").localeCompare(b.kana || "", "ja");
     });
 
   if (printTargetUsers.length === 0) {

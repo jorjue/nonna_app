@@ -375,7 +375,7 @@ generateBathListButton.addEventListener("click", () => {
     residentUserGroup.classList.add("stack-sm");
 
     residentUserGroup.innerHTML = `
-            <h3 class="section-title">入居者</h3>
+            <h3 class="section-title" id="generateBathListSectionTitle">入居者</h3>
         `;
 
     residentUsers.forEach((user) => {

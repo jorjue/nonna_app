@@ -206,3 +206,7 @@ input[type="checkbox"] {
   color: #666666;
   margin-bottom: 0.25rem;
 }
+
+#generateBathListSectionTitle {
+  margin-top: 32px;
+}

@@ -76,19 +76,40 @@ backButton.forEach((button) => {
   });
 });
 
+function sortUsers(users) {
+  return [...users].sort((a, b) => {
+    if (a.active !== b.active) {
+      return a.active ? -1 : 1;
+    }
+
+    if (!a.active && !b.active) {
+      return (a.kana || "").localeCompare(b.kana || "", "ja");
+    }
+
+    if (a.serviceType !== b.serviceType) {
+      if (a.serviceType === "day") return -1;
+      if (b.serviceType === "day") return 1;
+    }
+
+    return (a.kana || "").localeCompare(b.kana || "", "ja");
+  });
+}
+
 // 利用者一覧の画面描写に関する動作
 function renderUsers() {
   const userList = document.getElementById("userList");
 
   const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  users.sort((a, b) => {
-    if (a.serviceType !== b.serviceType) {
-      return a.serviceType.localeCompare(b.serviceType);
-    }
+  // users.sort((a, b) => {
+  //   if (a.serviceType !== b.serviceType) {
+  //     return a.serviceType.localeCompare(b.serviceType);
+  //   }
 
-    return (a.kana || "").localeCompare(b.kana || "", "ja");
-  });
+  //   return (a.kana || "").localeCompare(b.kana || "", "ja");
+  // });
+
+  const sortedUsers = sortUsers(users);
 
   const serviceTypeMap = {
     day: "デイサービス",
@@ -124,9 +145,13 @@ function renderUsers() {
     return;
   }
 
-  users.forEach((user) => {
+  sortedUsers.forEach((user) => {
     const userCard = document.createElement("div");
     userCard.classList.add("user-card");
+
+    if (!user.active) {
+      userCard.classList.add("inactive-user");
+    }
 
     const bathDaysText = (user.bathDays || [])
       .map((day) => bathDaysMap[day])
@@ -140,13 +165,16 @@ function renderUsers() {
         <p>入浴形態：${bathTypeMap[user.bathType]}</p>
         <div class="user-card-actions">
         <button type="button" class="edit-button btn btn-secondary" data-id="${user.id}">編集</button>
+        <button type="button" class="inactive-button btn btn-danger" data-id="${user.id}">${user.active ? "利用終了" : "利用再開"}</button>
         <button type="button" class="delete-button btn btn-danger" data-id="${user.id}">削除</button>
         </div>
         `;
 
     const deleteButton = userCard.querySelector(".delete-button");
     const editButton = userCard.querySelector(".edit-button");
+    const inactiveButton = userCard.querySelector(".inactive-button");
 
+    // 削除ボタンの動作
     deleteButton.addEventListener("click", () => {
       const result = confirm(`${user.name}さんを削除しますか？`);
 
@@ -187,6 +215,32 @@ function renderUsers() {
       showSection(userRegisterSection);
 
       document.getElementById("userNameInput").focus();
+    });
+
+    // 利用終了/再開ボタンの動作
+    inactiveButton.addEventListener("click", () => {
+      const nextActiveState = !user.active;
+      const message = nextActiveState
+        ? `${user.name}さんを利用再開に変更してよろしいですか？`
+        : `${user.name}さんを利用終了に変更してよろしいですか？`;
+
+      const result = confirm(message);
+
+      if (!result) return;
+
+      const updatedUsers = users.map((targetUser) => {
+        if (targetUser.id !== user.id) {
+          return targetUser;
+        }
+
+        return {
+          ...targetUser,
+          active: nextActiveState,
+        };
+      });
+
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+      renderUsers();
     });
 
     userList.appendChild(userCard);
@@ -297,7 +351,7 @@ generateBathListButton.addEventListener("click", () => {
   const dayUsers = users
     .filter((user) => {
       return (
-        user.serviceType === "day" && (user.bathDays || []).includes(dayKey)
+        user.serviceType === "day" && user.active && (user.bathDays || []).includes(dayKey)
       );
     })
     .sort((a, b) => {
@@ -313,7 +367,7 @@ generateBathListButton.addEventListener("click", () => {
 
   const residentUsers = users
     .filter((user) => {
-      return user.serviceType === "resident";
+      return user.serviceType === "resident" && user.active;
     })
     .sort((a, b) => {
       const aScheduled = (a.bathDays || []).includes(dayKey);

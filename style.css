@@ -210,3 +210,8 @@ input[type="checkbox"] {
 #generateBathListSectionTitle {
   margin-top: 32px;
 }
+
+.inactive-user {
+  opacity: 0.45;
+  background-color: #f2f2f2;
+}

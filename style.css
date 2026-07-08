@@ -212,6 +212,6 @@ input[type="checkbox"] {
 }
 
 .inactive-user {
-  opacity: 0.45;
-  background-color: #f2f2f2;
+  background-color: #d3d4d6;
+  border-left: 4px solid #9ca3af;
 }

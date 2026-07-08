@@ -86,11 +86,6 @@ function sortUsers(users) {
       return (a.kana || "").localeCompare(b.kana || "", "ja");
     }
 
-    if (a.serviceType !== b.serviceType) {
-      if (a.serviceType === "day") return -1;
-      if (b.serviceType === "day") return 1;
-    }
-
     return (a.kana || "").localeCompare(b.kana || "", "ja");
   });
 }
@@ -100,14 +95,6 @@ function renderUsers() {
   const userList = document.getElementById("userList");
 
   const users = JSON.parse(localStorage.getItem("users")) || [];
-
-  // users.sort((a, b) => {
-  //   if (a.serviceType !== b.serviceType) {
-  //     return a.serviceType.localeCompare(b.serviceType);
-  //   }
-
-  //   return (a.kana || "").localeCompare(b.kana || "", "ja");
-  // });
 
   const sortedUsers = sortUsers(users);
 

@@ -152,6 +152,7 @@ function renderUsers() {
         <p>入浴形態：${bathTypeMap[user.bathType]}</p>
         <div class="user-card-actions">
         <button type="button" class="edit-button btn btn-secondary" data-id="${user.id}">編集</button>
+        <button type="button" class="short-stay-button btn btn-primary" data-id="${user.id}">ショートステイ期間設定</button>
         <button type="button" class="inactive-button btn btn-danger" data-id="${user.id}">${user.active ? "利用終了" : "利用再開"}</button>
         <button type="button" class="delete-button btn btn-danger" data-id="${user.id}">削除</button>
         </div>
@@ -160,6 +161,7 @@ function renderUsers() {
     const deleteButton = userCard.querySelector(".delete-button");
     const editButton = userCard.querySelector(".edit-button");
     const inactiveButton = userCard.querySelector(".inactive-button");
+    const shortStayButton = userCard.querySelector(".short-stay-button");
 
     // 削除ボタンの動作
     deleteButton.addEventListener("click", () => {
@@ -230,6 +232,11 @@ function renderUsers() {
       renderUsers();
     });
 
+    // ショートステイボタンの動作
+    shortStayButton.addEventListener("click", () => {
+      alert("ショートステイ設定は開発中です。");
+    });
+
     userList.appendChild(userCard);
   });
 }
@@ -274,6 +281,11 @@ inputForm.addEventListener("submit", (event) => {
     bathDays: bathDays,
     bathType: bathType,
     active: true,
+    shortStay: {
+      enabled: false,
+      startDate: "",
+      endDate: "",
+    },
   };
 
   let users = JSON.parse(localStorage.getItem("users")) || [];
@@ -289,6 +301,11 @@ inputForm.addEventListener("submit", (event) => {
         ...userData,
         id: editingUserId,
         active: user.active,
+        shortStay: user.shortStay || {
+          enabled: false,
+          startDate: "",
+          endDate: "",
+        },
       };
     });
 
@@ -338,7 +355,9 @@ generateBathListButton.addEventListener("click", () => {
   const dayUsers = users
     .filter((user) => {
       return (
-        user.serviceType === "day" && user.active && (user.bathDays || []).includes(dayKey)
+        user.serviceType === "day" &&
+        user.active &&
+        (user.bathDays || []).includes(dayKey)
       );
     })
     .sort((a, b) => {
